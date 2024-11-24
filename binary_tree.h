@@ -3,11 +3,13 @@
 class node {
 private:
 	int data;
+	size_t weight;
 	node* left;
 	node* right;
 public:
 	node(int value) {
 		data = value;
+		wight = 1;
 		left = nullptr;
 		right = nullptr;
 	}
@@ -29,6 +31,7 @@ node* node::insertNode(int num) {
 		return new node(num);
 	}
 	if (this->data == num) {
+		this->weight += 1;
 		return this;
 	}
 	if (num > this->data) {
