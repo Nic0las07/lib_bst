@@ -4,27 +4,28 @@
 int main()
 {
     Node* root = new Node(25);
-    root->insertR_ite(15);
-    root = root->insertR(50);
-    root = root->insertR(10);
-    root->insertR_ite(22);
-    root = root->insertR(35);
-    root->insertR_ite(70);
-    root = root->insertR(4);
-    root = root->insertR(12);
-    root->insertR_ite(18);
-    root = root->insertR(24);
-    root = root->insertR(31);
-    root->insertR_ite(44);
-    root->insertR_ite(66);
-    root = root->insertR(90);
+    root->insertR(15);
+    root->insertR(50);
+    root->insertR(10);
+    root->insertR(22);
+    root->insertR(35);
+    root->insertR(70);
+    root->insertR(4);
+    root->insertR(12);
+    root->insertR(18);
+    root = root->insertI(24);
+    root = root->insertI(31);
+    root->insertR(44);
+    root->insertR(66);
+    root = root->insertI(90);
 
-    std::cout << root->findValue(45) << std::endl;
+    std::cout << root->searchI(45) << std::endl;
+    std::cout << root->searchI(44) << std::endl;
 
-    root = root->nodeEraser(35);
-    root = root->nodeEraser(4);
-    root = root->nodeEraser(31);
-    root = root->nodeEraser(25);
+    root = root->deleteNode(35);
+    root = root->deleteNode(4);
+    root = root->deleteNode(31);
+    root = root->deleteNode(25);
 
     root->inOrder();
     std::cout << std::endl;

@@ -13,18 +13,17 @@ public:
 	int getData();
 	Node* getLeftChild();
 	Node* getRightChild();
-	Node* insertR(int k);
-	void insertR_ite(int k);
-	bool findValue(int k);
+	Node* insertI(int k);
+	void insertR(int k);
+	bool searchI(int k);
+	bool searchR(int k);
 	Node* findMin(Node* root);
-	Node* nodeEraser(int k);
+	Node* deleteNode(int k);
 	void preOrder();
 	void inOrder();
 	void postOrder();
 	int BST_height();
 	bool isBst(int max = INT_MAX, int min = INT_MIN);
 };
-
-
 
 #endif
