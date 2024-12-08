@@ -1,6 +1,7 @@
 #ifndef BST_H
 #define BST_H
 #include <climits>
+#include <iostream>
 
 class Node {
 private:
@@ -24,6 +25,8 @@ public:
 	void postOrder();
 	int BST_height();
 	bool isBst(int max = INT_MAX, int min = INT_MIN);
+	friend std::ostream& operator<<(std::ostream& os, Node& root);
+	friend std::istream& operator>>(std::istream& is, Node& root);
 };
 
 #endif

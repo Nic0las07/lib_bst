@@ -4,6 +4,7 @@
 int main()
 {
     Node* root = new Node(25);
+    /*
     root->insertR(15);
     root->insertR(50);
     root->insertR(10);
@@ -18,6 +19,10 @@ int main()
     root->insertR(44);
     root->insertR(66);
     root = root->insertI(90);
+    */
+    std::cin >> *root >> *root >> *root >> *root;
+    std::cin >> *root >> *root >> *root >> *root;
+    std::cin >> *root >> *root >> *root >> *root >> *root >> *root;
 
     std::cout << root->searchI(45) << std::endl;
     std::cout << root->searchI(44) << std::endl;
@@ -36,6 +41,12 @@ int main()
     std::cout << std::endl << root->BST_height();
 
     std::cout << std::endl << root->isBst();
+
+    std::cout << '\n' << '\n' << '\n' << '\n';
+
+    std::cout << *root;
+
+    std::cout << '\n' << '\n' << '\n' << '\n';
     
     return 0;
 }

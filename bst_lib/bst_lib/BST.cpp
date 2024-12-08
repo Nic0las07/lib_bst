@@ -191,3 +191,17 @@ bool Node::isBst(int max, int min) {
 	}
 	return this->left->isBst(this->data, min) && this->right->isBst(max, this->data);
 }
+
+std::ostream& operator<<(std::ostream& os, Node & root) {
+	os << root.data << '\n';
+	os << root.left << '\n';
+	os << root.right << '\n';
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Node& root) {
+	int value{ 0 };
+	is >> value;
+	root.insertI(value);
+	return is;
+}
