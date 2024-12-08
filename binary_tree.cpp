@@ -20,7 +20,7 @@ Node* Node::getRightChild() {
 	return right;
 }
 
-Node* Node::insertR(int k) {
+Node* Node::insertI(int k) {
 	if (this == nullptr) {
 		return new Node(k);
 	}
@@ -29,15 +29,15 @@ Node* Node::insertR(int k) {
 		return this;
 	}
 	if (k > this->data) {
-		this->right = this->right->insertR(k);
+		this->right = this->right->insertI(k);
 	}
 	else {
-		this->left = this->left->insertR(k);
+		this->left = this->left->insertI(k);
 	}
 	return this;
 }
 
-void Node::insertR_ite(int k) {
+void Node::insertR(int k) {
 	Node* current{ this };
 	while (current != nullptr) {
 		if (current->data == k) {
@@ -65,7 +65,24 @@ void Node::insertR_ite(int k) {
 	}
 }
 
-bool Node::findValue(int k) {
+bool Node::searchI(int k) {
+	bool check{ true };
+	if (this == nullptr) {
+		return false;
+	}
+	if (this->data == k) {
+		return true;
+	}
+	if (k > this->data) {
+		check = this->right->searchI(k);
+	}
+	else {
+		check = this->left->searchI(k);
+	}
+	return check;
+}
+
+bool Node::searchR(int k) {
 	Node* current{ this };
 	while (current != nullptr) {
 		if (current->data == k) {
@@ -89,7 +106,7 @@ Node* Node::findMin(Node* root) {
 	return root;
 }
 
-Node* Node::nodeEraser(int k) {
+Node* Node::deleteNode(int k) {
 	Node* temp = nullptr;
 	if (this == nullptr) {
 		return this;
@@ -115,15 +132,15 @@ Node* Node::nodeEraser(int k) {
 		if (this->left != nullptr && this->right != nullptr) {
 			temp = findMin(this->right);
 			this->data = temp->data;
-			this->right = this->right->nodeEraser(temp->data);
+			this->right = this->right->deleteNode(temp->data);
 			return this;
 		}
 	}
 	if (k > this->data) {
-		this->right = this->right->nodeEraser(k);
+		this->right = this->right->deleteNode(k);
 	}
 	else {
-		this->left = this->left->nodeEraser(k);
+		this->left = this->left->deleteNode(k);
 	}
 	return this;
 }
@@ -173,4 +190,18 @@ bool Node::isBst(int max, int min) {
 		return false;
 	}
 	return this->left->isBst(this->data, min) && this->right->isBst(max, this->data);
+}
+
+std::ostream& operator<<(std::ostream& os, Node & root) {
+	os << root.data << '\n';
+	os << root.left << '\n';
+	os << root.right << '\n';
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Node& root) {
+	int value{ 0 };
+	is >> value;
+	root.insertI(value);
+	return is;
 }
