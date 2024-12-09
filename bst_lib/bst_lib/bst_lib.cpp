@@ -3,26 +3,23 @@
 
 int main()
 {
-    Node* root = new Node(25);
-    /*
-    root->insertR(15);
-    root->insertR(50);
-    root->insertR(10);
-    root->insertR(22);
-    root->insertR(35);
-    root->insertR(70);
-    root->insertR(4);
-    root->insertR(12);
-    root->insertR(18);
-    root = root->insertI(24);
+    Node* root;
+    std::cin >> root;
+
+    root = root->insertR(15);
+    root = root->insertI(50);
+    root = root->insertR(10);
+    root = root->insertI(22);
+    root = root->insertR(35);
+    root = root->insertR(70);
+    root = root->insertI(4);
+    root = root->insertR(12);
+    root = root->insertI(18);
+    root = root->insertR(24);
     root = root->insertI(31);
-    root->insertR(44);
-    root->insertR(66);
-    root = root->insertI(90);
-    */
-    std::cin >> *root >> *root >> *root >> *root;
-    std::cin >> *root >> *root >> *root >> *root;
-    std::cin >> *root >> *root >> *root >> *root >> *root >> *root;
+    root = root->insertR(44);
+    root = root->insertI(66);
+    root = root->insertR(90);
 
     std::cout << root->searchI(45) << std::endl;
     std::cout << root->searchI(44) << std::endl;
@@ -44,7 +41,7 @@ int main()
 
     std::cout << '\n' << '\n' << '\n' << '\n';
 
-    std::cout << *root;
+    std::cout << * root  << * root << * root;
 
     std::cout << '\n' << '\n' << '\n' << '\n';
     

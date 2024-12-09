@@ -4,23 +4,23 @@
 Node::Node(int value) {
 	data = value;
 	weight = 1;
-	left = nullptr;
-	right = nullptr;
+	lchild = nullptr;
+	rchild = nullptr;
 }
 
-int Node::getData() {
+int& Node::getData() {
 	return data;
 }
 
-Node* Node::getLeftChild() {
-	return left;
+Node* Node::getLchild() {
+	return lchild;
 }
 
-Node* Node::getRightChild() {
-	return right;
+Node* Node::getRchild() {
+	return rchild;
 }
 
-Node* Node::insertI(int k) {
+Node* Node::insertR(int k) {
 	if (this == nullptr) {
 		return new Node(k);
 	}
@@ -29,15 +29,15 @@ Node* Node::insertI(int k) {
 		return this;
 	}
 	if (k > this->data) {
-		this->right = this->right->insertI(k);
+		this->rchild = this->rchild->insertR(k);
 	}
 	else {
-		this->left = this->left->insertI(k);
+		this->lchild = this->lchild->insertR(k);
 	}
 	return this;
 }
 
-void Node::insertR(int k) {
+Node* Node::insertI(int k) {
 	Node* current{ this };
 	while (current != nullptr) {
 		if (current->data == k) {
@@ -45,27 +45,28 @@ void Node::insertR(int k) {
 			break;
 		}
 		if (k > current->data) {
-			if (current->right == nullptr) {
-				current->right = new Node(k);
+			if (current->rchild == nullptr) {
+				current->rchild = new Node(k);
 				break;
 			}
 			else {
-				current = current->right;
+				current = current->rchild;
 			}
 		}
 		else {
-			if (current->left == nullptr) {
-				current->left = new Node(k);
+			if (current->lchild == nullptr) {
+				current->lchild = new Node(k);
 				break;
 			}
 			else {
-				current = current->left;
+				current = current->lchild;
 			}
 		}
 	}
+	return this;
 }
 
-bool Node::searchI(int k) {
+bool Node::searchR(int k) {
 	bool check{ true };
 	if (this == nullptr) {
 		return false;
@@ -74,25 +75,25 @@ bool Node::searchI(int k) {
 		return true;
 	}
 	if (k > this->data) {
-		check = this->right->searchI(k);
+		check = this->rchild->searchR(k);
 	}
 	else {
-		check = this->left->searchI(k);
+		check = this->lchild->searchR(k);
 	}
 	return check;
 }
 
-bool Node::searchR(int k) {
+bool Node::searchI(int k) {
 	Node* current{ this };
 	while (current != nullptr) {
 		if (current->data == k) {
 			return true;
 		}
 		if (k > current->data) {
-			current = current->right;
+			current = current->rchild;
 		}
 		else {
-			current = current->left;
+			current = current->lchild;
 
 		}
 	}
@@ -100,8 +101,8 @@ bool Node::searchR(int k) {
 }
 
 Node* Node::findMin(Node* root) {
-	while (root->left != nullptr) {
-		root = root->left;
+	while (root->lchild != nullptr) {
+		root = root->lchild;
 	}
 	return root;
 }
@@ -112,35 +113,35 @@ Node* Node::deleteNode(int k) {
 		return this;
 	}
 	if (k == this->data) {
-		if (this->right == nullptr && this->left == nullptr) {
+		if (this->rchild == nullptr && this->lchild == nullptr) {
 			delete this;
 			temp = nullptr;
 			return temp;
 		}
-		if (this->right != nullptr && this->left == nullptr) {
-			temp = this->right;
+		if (this->rchild != nullptr && this->lchild == nullptr) {
+			temp = this->rchild;
 			delete this;
 			temp = nullptr;
 			return temp;
 		}
-		if (this->left != nullptr && this->right == nullptr) {
-			temp = this->left;
+		if (this->lchild != nullptr && this->rchild == nullptr) {
+			temp = this->lchild;
 			delete this;
 			temp = nullptr;
 			return nullptr;
 		}
-		if (this->left != nullptr && this->right != nullptr) {
-			temp = findMin(this->right);
+		if (this->lchild != nullptr && this->rchild != nullptr) {
+			temp = findMin(this->rchild);
 			this->data = temp->data;
-			this->right = this->right->deleteNode(temp->data);
+			this->rchild = this->rchild->deleteNode(temp->data);
 			return this;
 		}
 	}
 	if (k > this->data) {
-		this->right = this->right->deleteNode(k);
+		this->rchild = this->rchild->deleteNode(k);
 	}
 	else {
-		this->left = this->left->deleteNode(k);
+		this->lchild = this->lchild->deleteNode(k);
 	}
 	return this;
 }
@@ -150,25 +151,25 @@ void Node::preOrder() {
 		return;
 	}
 	std::cout << this->data << ' ';
-	this->left->preOrder();
-	this->right->preOrder();
+	this->lchild->preOrder();
+	this->rchild->preOrder();
 }
 
 void Node::inOrder() {
 	if (this == nullptr) {
 		return;
 	}
-	this->left->inOrder();
+	this->lchild->inOrder();
 	std::cout << this->data << ' ';
-	this->right->inOrder();
+	this->rchild->inOrder();
 }
 
 void Node::postOrder() {
 	if (this == nullptr) {
 		return;
 	}
-	this->left->postOrder();
-	this->right->postOrder();
+	this->lchild->postOrder();
+	this->rchild->postOrder();
 	std::cout << this->data << ' ';
 }
 
@@ -177,8 +178,8 @@ int Node::BST_height() {
 	if (this == nullptr) {
 		return 0;
 	}
-	l = this->left->BST_height();
-	r = this->right->BST_height();
+	l = this->lchild->BST_height();
+	r = this->rchild->BST_height();
 	return std::max(l, r) + 1;
 }
 
@@ -189,19 +190,29 @@ bool Node::isBst(int max, int min) {
 	if (this->data > max || this->data < min) {
 		return false;
 	}
-	return this->left->isBst(this->data, min) && this->right->isBst(max, this->data);
+	return this->lchild->isBst(this->data, min) && this->rchild->isBst(max, this->data);
 }
 
 std::ostream& operator<<(std::ostream& os, Node & root) {
-	os << root.data << '\n';
-	os << root.left << '\n';
-	os << root.right << '\n';
+	os << "Nodo: " << root.data << ' ';
+	if (root.lchild != nullptr) {
+		os << "Figlio sinistro: " << root.lchild->data << ' ';
+	}
+	else {
+		os << "Figlio sinistro: " << "Non c'è" << ' ';
+	}
+	if (root.rchild != nullptr) {
+		os << "Figlio destro: " << root.rchild->data << ' ' << '\n';
+	}
+	else {
+		os << "Figlio destro: " << "Non c'è" << ' ';
+	}
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, Node& root) {
+std::istream& operator>>(std::istream& is, Node*& root) {
 	int value{ 0 };
 	is >> value;
-	root.insertI(value);
+	root = new Node(value);
 	return is;
 }
