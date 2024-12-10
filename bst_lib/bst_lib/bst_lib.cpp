@@ -5,7 +5,6 @@ int main()
 {
     Node* root;
     std::cin >> root;
-
     root = root->insertR(15);
     root = root->insertI(50);
     root = root->insertR(10);
@@ -21,6 +20,8 @@ int main()
     root = root->insertI(66);
     root = root->insertR(90);
 
+    std::cout << root->isBst();
+    /*
     std::cout << root->searchI(45) << std::endl;
     std::cout << root->searchI(44) << std::endl;
 
@@ -44,6 +45,6 @@ int main()
     std::cout << * root  << * root << * root;
 
     std::cout << '\n' << '\n' << '\n' << '\n';
-    
+    */
     return 0;
 }

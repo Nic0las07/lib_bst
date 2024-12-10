@@ -9,9 +9,10 @@ private:
 	size_t weight;
 	Node* lchild;
 	Node* rchild;
+	bool isBstFunction(int max, int min);
 public:
 	Node(int value = 0);
-	int& getData();
+	int getData();
 	Node* getLchild();
 	Node* getRchild();
 	Node* insertR(int k);
@@ -24,7 +25,7 @@ public:
 	void inOrder();
 	void postOrder();
 	int BST_height();
-	bool isBst(int max = INT_MAX, int min = INT_MIN);
+	bool isBst();
 	friend std::ostream& operator<<(std::ostream& os, Node& root);
 	friend std::istream& operator>>(std::istream& is, Node*& root);
 };

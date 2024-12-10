@@ -8,7 +8,7 @@ Node::Node(int value) {
 	rchild = nullptr;
 }
 
-int& Node::getData() {
+int Node::getData() {
 	return data;
 }
 
@@ -183,17 +183,21 @@ int Node::BST_height() {
 	return std::max(l, r) + 1;
 }
 
-bool Node::isBst(int max, int min) {
+bool Node::isBst() {
+	return isBstFunction(INT_MAX, INT_MIN);
+}
+
+bool Node::isBstFunction(int max, int min) {
 	if (this == nullptr) {
 		return true;
 	}
 	if (this->data > max || this->data < min) {
 		return false;
 	}
-	return this->lchild->isBst(this->data, min) && this->rchild->isBst(max, this->data);
+	return this->lchild->isBstFunction(this->data, min) && this->rchild->isBstFunction(max, this->data);
 }
 
-std::ostream& operator<<(std::ostream& os, Node & root) {
+std::ostream& operator<<(std::ostream& os, Node& root) {
 	os << "Nodo: " << root.data << ' ';
 	if (root.lchild != nullptr) {
 		os << "Figlio sinistro: " << root.lchild->data << ' ';
